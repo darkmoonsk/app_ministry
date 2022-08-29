@@ -8,7 +8,7 @@ Com o diretorio do projeto aberto no terminal, você pode inicializar-lo:
 
 ### `npm start`
 
-Iniciado o aplicativo no modo de desenvolvimento.\
+Inicia o aplicativo no modo de desenvolvimento.\
 Abre em [http://localhost:3000](http://localhost:3000) para a visualização em seu navegador.
 
 Necessário Node versão 14+.

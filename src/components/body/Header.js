@@ -1,13 +1,14 @@
 import './Header.css'
+import Logo from '../../assets/ministry-logo.png';
 import Menu from './Menu'
 
 function Header(){
     return (
         <div className="header">
-            <h1>Ministry</h1>
+            <img src={Logo} alt="Logo" width="180px"></img>
             <Menu></Menu>
         </div>
     );
 }
 
-export default Header;
+export default Header; 

@@ -1,0 +1,27 @@
+.add-report-form-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.add-report-form-control label {
+  display: block;
+  font-size: calc(0.6rem + 1vh);
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.add-report-form-control input {
+  font: inherit;
+  font-size: calc(0.5rem + 0.5vh);
+  padding: calc(0.5rem + 0.5vh);
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  max-width: 100%;
+}
+
+.add-report-form-actions {
+  text-align: right;
+}

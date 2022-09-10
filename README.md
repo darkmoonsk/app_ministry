@@ -1,6 +1,11 @@
+## Work in progress
+
 # Ministry
 
 Um aplicativo web para gerenciamento de relatório de serviço de pregação para as Testemunhas de Jeová.
+
+### Acesse diretamente online usando o link abaixo:
+https://app-ministry.vercel.app/
 
 ## Script de inicialização
 

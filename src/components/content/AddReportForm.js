@@ -4,7 +4,7 @@ import Context from '../body/Context';
 import './AddReportForm.css'
 
 function AddReportForm(props) {
-    const [enteredMonth, setEnteredMonth] = useState("");
+    const [enteredMonth, setEnteredMonth] = useState("Janeiro");
     const [enteredHours, setEnteredHours] = useState("");
     const [enteredPublications, setEnteredPublications] = useState("");
     const [enteredVideos, setEnteredVideos] = useState("");
@@ -25,12 +25,13 @@ function AddReportForm(props) {
             studies: enteredStudies,
         }
         props.addReport(report);
-        setEnteredMonth("");
-        setEnteredHours(0);
-        setEnteredPublications(0);
-        setEnteredVideos(0);
-        setEnteredRevisits(0);
-        setEnteredStudies(0);
+        setEnteredMonth("Janeiro");
+        setEnteredHours("");
+        setEnteredPublications("");
+        setEnteredVideos("");
+        setEnteredRevisits("");
+        setEnteredStudies("");
+        onCancel();
     } 
 
     const onMonth = (event) => {

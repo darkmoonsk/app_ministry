@@ -7,6 +7,7 @@
   background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
   padding: 0;
   width: 100%;
+  min-height: 100vh;
   max-width: 1280px;
   height: 100%;
   box-shadow: 0px 2px 5px 7px rgba(30, 30, 30, 0.2);

@@ -13,13 +13,25 @@
   margin-bottom: 0.5rem;
 }
 
-.add-report-form-control input {
+.add-report-form-control input, select {
   font: inherit;
   font-size: calc(0.5rem + 0.5vh);
   padding: calc(0.5rem + 0.5vh);
   border-radius: 6px;
   border: 1px solid #ccc;
   max-width: 100%;
+}
+
+
+
+.add-report-form-control select {
+  text-align: center;
+  font-size: calc(0.5rem + 0.8vh);
+  padding: 10px 40px 10px 40px;
+}
+
+.add-report-form-control select:focus, input:focus{
+  outline: none;
 }
 
 .add-report-form-actions {

@@ -1,4 +1,6 @@
-function Report(){
+import React from "react";
+
+function Report(props){
     return (
         <div>
             <table>
@@ -15,12 +17,12 @@ function Report(){
 
                 <tbody>
                     <tr>
-                        <td><strong>Fevereiro</strong></td>
-                        <td>10</td>
-                        <td>5</td>
-                        <td>15</td>
-                        <td>8</td>
-                        <td>10</td>
+                        <td><strong>{props.month}</strong></td>
+                        <td>{props.hours}</td>
+                        <td>{props.publications}</td>
+                        <td>{props.videos}</td>
+                        <td>{props.revisits}</td>
+                        <td>{props.studies}</td>
                     </tr>
                 </tbody>
             </table>

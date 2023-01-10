@@ -1,15 +1,17 @@
 import { useContext, useState } from 'react';
 import Context from '../body/Context';
+import ButtonStandard from '../UI/ButtonStandard';
 
-import './AddReportForm.css'
+import classes from './AddReportForm.module.css'
 
 function AddReportForm(props) {
     const [enteredMonth, setEnteredMonth] = useState("Janeiro");
-    const [enteredHours, setEnteredHours] = useState("");
-    const [enteredPublications, setEnteredPublications] = useState("");
-    const [enteredVideos, setEnteredVideos] = useState("");
-    const [enteredRevisits, setEnteredRevisits] = useState("");
-    const [enteredStudies, setEnteredStudies] = useState("");
+    const [enteredYear, setEnteredYear] = useState("2022");
+    const [enteredHours, setEnteredHours] = useState("0");
+    const [enteredPublications, setEnteredPublications] = useState("0");
+    const [enteredVideos, setEnteredVideos] = useState("0");
+    const [enteredRevisits, setEnteredRevisits] = useState("0");
+    const [enteredStudies, setEnteredStudies] = useState("0");
 
     const [,setNewReportAction] = useContext(Context);
  
@@ -18,6 +20,7 @@ function AddReportForm(props) {
 
         const report = {
             month: enteredMonth,
+            year: enteredYear,
             hours: enteredHours,
             publications: enteredPublications,
             videos: enteredVideos,
@@ -26,6 +29,7 @@ function AddReportForm(props) {
         }
         props.addReport(report);
         setEnteredMonth("Janeiro");
+        setEnteredYear("2022");
         setEnteredHours("");
         setEnteredPublications("");
         setEnteredVideos("");
@@ -39,6 +43,9 @@ function AddReportForm(props) {
     };
     const onHours = (event) => {
         setEnteredHours(event.target.value);
+    };
+    const onYear = (event) => {
+        setEnteredYear(event.target.value);
     };
     const onPublications = (event) => {
         setEnteredPublications(event.target.value);
@@ -58,12 +65,12 @@ function AddReportForm(props) {
     };
 
     return (
-        <form onSubmit={onAddReport}>
-             <div className="add-report-form-controls" id="report">
-                <div className="add-report-form-control" >
+        <form onSubmit={onAddReport} className={classes["add-report-form-controls"]}>
+             <div className={classes["add-report-form-control"]} id="report">
+                <div>
                     <label>Mês</label>
                     {/* <input value={enteredMonth} onChange={onMonth} type="text" required/> */}
-                    <select onChange={onMonth}>
+                    <select onChange={onMonth} required>
                         <option value="Janeiro">Janeiro</option>
                         <option value="Fevereiro">Fevereiro</option>
                         <option value="Março">Março</option>
@@ -78,31 +85,36 @@ function AddReportForm(props) {
                         <option value="Dezembro">Dezembro</option>
                     </select>
                 </div>
-                <div className="add-report-form-control">
-                    <label>Horas trabalhadas</label>
-                    <input value={enteredHours} onChange={onHours} type="number" min="1" step="1"/>
+                <div >
+                    <label>Ano</label>
+                    <input value={enteredYear} onChange={onYear} type="number" min="2022" step="1" required/>
                 </div>
-                <div className="add-report-form-control">
+
+                <div >
+                    <label>Horas</label>
+                    <input value={enteredHours} onChange={onHours} type="number" min="0" step="1" />
+                </div>
+                <div >
                     <label>Publicações</label>
-                    <input value={enteredPublications} onChange={onPublications} type="number" min="1" step="1"/>
+                    <input value={enteredPublications} onChange={onPublications} type="number" min="0" step="1" />
                 </div>
-                <div className="add-report-form-control">
+                <div >
                     <label>Videos</label>
-                    <input value={enteredVideos} onChange={onVideos} type="number" min="1" step="1"/>
+                    <input value={enteredVideos} onChange={onVideos} type="number" min="0" step="1"/>
                 </div>
-                <div className="add-report-form-control">
+                <div >
                     <label>Revisitas</label>
-                    <input value={enteredRevisits} onChange={onRevisits} type="number" min="1" step="1"/>
+                    <input value={enteredRevisits} onChange={onRevisits} type="number" min="0" step="1"/>
                 </div>
-                <div className="add-report-form-control">
+                <div >
                     <label>Estudos</label>
-                    <input value={enteredStudies} onChange={onStudies} type="number" min="1" step="1"/>
-                </div>              
-            </div>
-            <div className="add-report-form-actions">
-                <button onClick={onCancel} className="btn-grad-01">Cancelar</button>
-                <button type="submit" className="btn-grad-01">Adicionar</button>
-            </div>
+                    <input value={enteredStudies} onChange={onStudies} type="number" min="0" step="1"/>
+                </div>             
+            </div>  
+            <div className={classes["add-report-form-actions"]}>
+                <ButtonStandard onClick={onCancel}>Cancelar</ButtonStandard>
+                <ButtonStandard type="submit">Adicionar</ButtonStandard>
+            </div>        
         </form>
     );
 }

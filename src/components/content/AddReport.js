@@ -1,4 +1,5 @@
-import './AddReport.css'
+import { Fragment } from 'react';
+import classes from './AddReport.module.css'
 import AddReportForm from './AddReportForm';
 
 function AddReport(props) {
@@ -11,9 +12,12 @@ function AddReport(props) {
     }
 
     return (
-       <div className="add-report">
-            <AddReportForm addReport={getReport}></AddReportForm>
+    <Fragment>
+       <div className={classes["modal-background"]}></div>
+       <div className={classes["add-report"]}>
+            <AddReportForm addReport={getReport}></AddReportForm>           
        </div>
+    </Fragment>   
     );
 }
 

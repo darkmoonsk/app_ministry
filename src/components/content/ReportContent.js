@@ -1,6 +1,6 @@
 import { useState, useContext} from 'react';
 
-import './ReportContent.css'
+import classes from './ReportContent.module.css'
 import Report from './Report'
 import AddReport from './AddReport'
 import Context from '../body/Context';
@@ -9,6 +9,7 @@ import Context from '../body/Context';
 const DUMMY_REPORTS = [
     {
         id: "r1",
+        year: "2022",
         month: "Fevereiro",
         hours: 12,
         publications: 15,
@@ -32,7 +33,7 @@ function ReportContent(props){
     console.log(reports);
 
     return (
-        <div className="ReportContent">               
+        <div className={classes["report-content"]}>               
                 {newReportAction?
                     <AddReport onAddReportContent={addReportContentHandler}/>
                 :
@@ -43,6 +44,7 @@ function ReportContent(props){
                 <Report
                     key={index}
                     month={report.month}
+                    year={report.year}
                     hours={report.hours}
                     publications={report.publications}
                     videos={report.videos}
@@ -50,7 +52,7 @@ function ReportContent(props){
                     studies={report.studies}
                 />
             ))}
-            <div className="report-content-footer"></div>
+            <div className={classes["report-content-footer"]}></div>
         </div>
     );
 }

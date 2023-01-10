@@ -7,7 +7,8 @@ function Report(props){
                 <thead>
                     <tr>
                         <th>Mês</th>
-                        <th>Horas trabalhadas</th>
+                        <th>Ano</th>
+                        <th>Horas</th>
                         <th>Publicações</th>
                         <th>Videos</th>
                         <th>Revisitas</th>
@@ -18,6 +19,7 @@ function Report(props){
                 <tbody>
                     <tr>
                         <td><strong>{props.month}</strong></td>
+                        <td>{props.year}</td>
                         <td>{props.hours}</td>
                         <td>{props.publications}</td>
                         <td>{props.videos}</td>

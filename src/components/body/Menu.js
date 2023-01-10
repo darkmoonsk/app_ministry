@@ -1,7 +1,8 @@
 import { useContext } from 'react';
+import Button from '../UI/Button';
 import Context from './Context';
 
-import './Menu.css';
+import classes from './Menu.module.css';
 
 function Menu(props) {
     const [,setNewReportAction] = useContext(Context);
@@ -11,11 +12,13 @@ function Menu(props) {
     };
 
     return (
-        <nav className="menu">
-            <ul >
-            <a href="#report" onClick={onNewReportHandler}><li className="btn-grad-01">Novo relatório</li></a>
-            </ul>
-        </nav>
+        <div className={classes.menu}>
+            <nav>
+                <ul >
+                    <Button onClick={onNewReportHandler}><li>Novo relatório</li></Button>
+                </ul>
+            </nav>
+        </div>
     );
 }
 

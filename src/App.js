@@ -1,19 +1,18 @@
 import { useState } from 'react';
-import './App.css';
+import classes from './App.module.css';
 import Context from './components/body/Context';
-import Header from './components/body/Header';
-import ReportContent from './components/content/ReportContent';
+import Dashboard from './pages/Dashboard';
+
 
 
 function App() {
   const [newReportAction, setNewReportAction] = useState(false);
 
   return (
-    <div className="main-container">
-      <div className="container">
-          <Context.Provider value={[newReportAction, setNewReportAction]}>
-          <Header />
-          <ReportContent />
+    <div className={classes["main-container"]}>
+      <div className={classes.container}>
+          <Context.Provider value={[newReportAction, setNewReportAction]}>               
+            <Dashboard />
           </Context.Provider>
       </div> 
     </div>

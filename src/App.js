@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import classes from './App.module.css';
-import Context from './components/body/Context';
+import Context from './components/dashboard/body/Context';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';

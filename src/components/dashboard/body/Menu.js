@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import Button from '../UI/Button';
+import Button from '../../UI/Button';
 import Context from './Context';
 
 import classes from './Menu.module.css';

@@ -1,14 +1,14 @@
 import React from 'react'
-import Menu from '../components/body/Menu'
-import ReportContent from '../components/content/ReportContent'
-import classes from "./Dashboard.module.css"
+import Menu from '../components/dashboard/body/Menu'
+import ReportContent from '../components/dashboard/content/ReportContent'
+import DashboardContainer from '../components/dashboard/DashboardContainer'
 
 function dashboard() {
   return (
-    <div className={classes.container}>
+    <DashboardContainer>
         <Menu />
         <ReportContent />
-    </div>
+    </DashboardContainer>
   )
 }
 

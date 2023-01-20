@@ -1,6 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 .container {
+    margin-bottom: 170px;
+}
+
+.logo {
+    margin-bottom: 50px;
+}
+
+.login-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,13 +24,15 @@
         rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
-.container input {
+.login-container input {
     width: 300px;
     height: 40px;
     padding: 15px;
+    border: none;
+    border-radius: 5px;
 }
 
-.container button {
+.login-container button {
     margin-top: 30px;
     align-items: center;
     appearance: none;
@@ -57,18 +67,18 @@
     font-weight: 700;
 }
 
-.container button:focus {
+.login-container button:focus {
     box-shadow: #d6d6e7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
         rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
 }
 
-.container button:hover {
+.login-container button:hover {
     box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
         rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
     transform: translateY(-2px);
 }
 
-.container button:active {
+.login-container button:active {
     box-shadow: #d6d6e7 0 3px 7px inset;
     transform: translateY(2px);
 }

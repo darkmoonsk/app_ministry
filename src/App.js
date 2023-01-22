@@ -1,30 +1,22 @@
-import { useState } from 'react';
-import classes from './App.module.css';
-import Context from './components/dashboard/body/Context';
-import Dashboard from './pages/Dashboard';
-import Login from './pages/Login';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-
-
+import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { MyContext } from "./contexts/Login/AppContext";
+import Context from "./contexts/Dashboard/Context";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
-  const [newReportAction, setNewReportAction] = useState(false);
+    const [newReportAction, setNewReportAction] = useState(false);
+    const {myUser} = useContext(MyContext);
 
-  return (
-    <div className={classes["main-container"]}>
-      <div className={classes.container}>
-          <Context.Provider value={[newReportAction, setNewReportAction]}>   
-            <BrowserRouter>  
-              <Routes>
-                <Route path="/login" element={<Login />} />          
-                <Route path="/dashboard" element={<Dashboard />} />
-              </Routes>
-            </BrowserRouter>
-          </Context.Provider>
-      </div> 
-    </div>
-  );
+    useEffect(() => {
+        console.log(myUser);
+    }, [myUser]);
+
+    return (
+        <Context.Provider value={[newReportAction, setNewReportAction]}>
+            <AppRoutes />
+        </Context.Provider>
+    );
 }
 
 export default App;

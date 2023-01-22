@@ -1,9 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 .container {
-    margin-bottom: 170px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    max-width: 600px;
 }
-
 .logo {
     margin-bottom: 50px;
 }
@@ -14,9 +18,9 @@
     align-items: center;
     gap: 20px;
     justify-content: center;
-    width: 100%;
+    width: 100%;;
     height: 350px;
-    max-width: 550px;
+    padding: 20px;
     background: rgba(212, 217, 237, 0.15);
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
@@ -25,7 +29,8 @@
 }
 
 .login-container input {
-    width: 300px;
+    width: 100%;
+    max-width: 350px;
     height: 40px;
     padding: 15px;
     border: none;

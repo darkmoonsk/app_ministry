@@ -4,9 +4,11 @@
     align-items: center;
     gap: 10px;
     justify-content: center;
-    width: 100%;
-    max-width: 550px;
-	padding: 50px;
+    width: 95%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    max-width: 600px;
+	padding: 20px;
     background: rgba(212, 217, 237, 0.15);
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
@@ -15,7 +17,8 @@
 }
 
 .container input {
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     height: 40px;
     padding: 15px;
     border: none;
@@ -25,7 +28,8 @@
 
 .container label {
 	text-align: left;
-	width: 300px;
+    width: 100%;
+	max-width: 300px;
 	font-size: 20px;
 	font-weight: 600;
 	color: #ccc;

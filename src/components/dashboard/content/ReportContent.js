@@ -3,7 +3,7 @@ import { useState, useContext} from 'react';
 import classes from './ReportContent.module.css'
 import Report from './Report'
 import AddReport from './AddReport'
-import Context from '../body/Context';
+import Context from '../../../contexts/Dashboard/Context';
 
 
 const DUMMY_REPORTS = [

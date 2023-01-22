@@ -1,11 +1,22 @@
-import { useContext } from 'react';
-import Button from '../../UI/Button';
-import Context from './Context';
+import { useContext } from "react";
+import { signOut } from "firebase/auth";
+import { auth } from "../../../firebaseConfig";
+import Button from "../../UI/Button";
+import Context from "../../../contexts/Dashboard/Context";
+import classes from "./Menu.module.css";
 
-import classes from './Menu.module.css';
 
 function Menu(props) {
-    const [,setNewReportAction] = useContext(Context);
+    const [, setNewReportAction] = useContext(Context);
+
+    const onSignOutHandler = async () => {
+       signOut(auth).then(() => {
+            alert("Deslogado com sucesso!");
+       }).catch((error) => {
+            alert("Erro ao deslogar!");
+            console.log(error);
+       });
+    };  
 
     const onNewReportHandler = () => {
         setNewReportAction(true);
@@ -14,8 +25,15 @@ function Menu(props) {
     return (
         <div className={classes.menu}>
             <nav>
-                <ul >
-                    <Button onClick={onNewReportHandler}><li>Novo relatório</li></Button>
+                <ul>
+                    <li>
+                        <Button onClick={onSignOutHandler}>Sair</Button>
+                    </li>
+                    <li>
+                        <Button onClick={onNewReportHandler}>
+                            Novo relatório
+                        </Button>
+                    </li>
                 </ul>
             </nav>
         </div>

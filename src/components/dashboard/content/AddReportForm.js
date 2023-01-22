@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import Context from '../body/Context';
+import Context from '../../../contexts/Dashboard/Context';
 import ButtonStandard from '../../UI/ButtonStandard';
 
 import classes from './AddReportForm.module.css'

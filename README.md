@@ -1,23 +1,21 @@
-## Work in progress
+### Work in progress
 
 # Ministry
+**Ministry** é um aplicativo web que está sendo criado com a intenção de facilitar o gerenciamento de relatórios de serviço de pregação das Testemunhas de Jeová. Nele será possível armazenar relatórios com as informações de Horas, Vídeos, Publicações, Revisitas e Estudos feitos.
 
-Um aplicativo web para gerenciamento de relatório de serviço de pregação para as Testemunhas de Jeová.
+Acesse aqui: [https://app-ministry.vercel.app/](https://app-ministry.vercel.app/)
 
-### Acesse diretamente online usando o link abaixo:
-https://app-ministry.vercel.app/
+## ⚙️Funcionalidades
 
-## Script de inicialização
+ - Salvar os seus relatórios online em sua conta
+ - Filtrar os seus relatórios por ano - **work in progress**
+ - Enviar seu relatório - **work in progress**
+ E outros mais sendo planejados ...
 
-Com o diretorio do projeto aberto no terminal, você pode inicializar-lo:
+## ⚒ Tecnologias usadas
 
-Para instalar todas as dependencias
-### `npm install`
-E para iniciar
-### `npm start`
-
-Inicia o aplicativo no modo de desenvolvimento.\
-Abre em [http://localhost:3000](http://localhost:3000) para a visualização em seu navegador.
-
-Necessário Node versão 14+.
-
+ - React
+ - JavaScript
+ - CSS
+ - React Router
+ - Firebase

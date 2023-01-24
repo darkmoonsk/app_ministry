@@ -11,7 +11,7 @@ function Dashboard() {
 
     if (!loading) {
         if (!user) {
-            return <Navigate to="/login" />;
+            return <Navigate to="/" />;
         }
 
         if (user) {

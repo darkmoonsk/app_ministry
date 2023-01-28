@@ -16,14 +16,14 @@
     justify-content: flex-end;
 }
 
-.report-content button {
+.report-content section button {
     background-color: transparent;
     border: none;
     width: 35px;
     transition: all 0.3s ease-in-out;
 }
 
-.report-content button:hover {
+.report-content section button:hover {
     cursor: pointer;
     width: 45px;
 }

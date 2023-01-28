@@ -35,8 +35,19 @@
 	color: #ccc;
 }
 
+.footer {
+    margin-top: 20px;
+}
+
+.footer p {
+    font-family: "Roboto", monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: red;
+    margin-bottom: 10px;
+}
+
 .container button {
-    margin-top: 30px;
     align-items: center;
     appearance: none;
     background-color: #fcfcfd;

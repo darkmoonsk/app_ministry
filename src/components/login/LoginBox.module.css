@@ -37,8 +37,19 @@
     border-radius: 5px;
 }
 
+.footer p {
+    font-family: "Roboto", monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: red;
+    margin-bottom: 10px;
+}
+
+.footer {
+    margin-top: 15px;
+}
+
 .login-container button {
-    margin-top: 30px;
     align-items: center;
     appearance: none;
     background-color: #fcfcfd;

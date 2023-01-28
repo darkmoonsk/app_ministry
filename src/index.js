@@ -2,14 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import AppContext from "./contexts/Login/AppContext";
+import UserProvider from "./contexts/Login/UserProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     //<React.StrictMode>
-    <AppContext>
+    <UserProvider>
         <App />
-    </AppContext>
+    </UserProvider>
     //</React.StrictMode>
 );
 

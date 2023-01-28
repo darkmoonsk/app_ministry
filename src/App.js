@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useContext } from "react";
-import { MyContext } from "./contexts/Login/AppContext";
+import UserContext from "./contexts/Login/UserContext";
 import Context from "./contexts/Dashboard/Context";
 import AppRoutes from "./routes/AppRoutes";
 
 function App() {
     const [newReportAction, setNewReportAction] = useState(false);
-    const {myUser} = useContext(MyContext);
+    const {myUser} = useContext(UserContext);
 
     useEffect(() => {
         console.log(myUser);

@@ -1,8 +1,14 @@
 import React from "react";
+import deleteImg from "../../../assets/delete.png";
 
-function Report(props){
+function Report(props) {
     return (
         <div>
+            <section>
+                <button onClick={() => props.onRemoveReportContent(props.id)}>
+                    <img alt="Botão para apagar o relatório" src={deleteImg} />
+                </button>
+            </section>
             <table>
                 <thead>
                     <tr>
@@ -18,7 +24,9 @@ function Report(props){
 
                 <tbody>
                     <tr>
-                        <td><strong>{props.month}</strong></td>
+                        <td>
+                            <strong>{props.month}</strong>
+                        </td>
                         <td>{props.year}</td>
                         <td>{props.hours}</td>
                         <td>{props.publications}</td>

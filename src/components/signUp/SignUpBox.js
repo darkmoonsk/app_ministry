@@ -34,6 +34,11 @@ function SignUpBox() {
         password,
         passwordConfirmation
     ) => {
+        password = password.trim();
+        passwordConfirmation = passwordConfirmation.trim();
+        email = email.trim();
+        name = name.trim();
+
         console.log(account.validatePassword(password, passwordConfirmation));
         if (!account.validatePassword(password, passwordConfirmation)) {
             setShowError("As senhas não conferem");
@@ -64,7 +69,7 @@ function SignUpBox() {
                 value={email}
                 onChange={updateEmail}
                 id="email"
-                type="text"
+                type="email"
             />
             <label htmlFor="password">Senha</label>
             <input

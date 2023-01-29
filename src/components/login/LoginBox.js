@@ -57,7 +57,7 @@ function LoginBox() {
                 <input
                     value={email}
                     onChange={updateEmail}
-                    type="text"
+                    type="email"
                     placeholder="Email"
                 />
                 <input

@@ -1,20 +1,34 @@
-import { useContext, useState } from 'react';
-import Context from '../../../contexts/Dashboard/Context';
-import ButtonStandard from '../../UI/ButtonStandard';
+import { useContext, useState } from "react";
+import Context from "../../../contexts/Dashboard/Context";
+import ButtonStandard from "../../UI/ButtonStandard";
 
-import classes from './AddReportForm.module.css'
+import classes from "./AddReportForm.module.css";
 
 function AddReportForm(props) {
-    const [enteredMonth, setEnteredMonth] = useState("Janeiro");
-    const [enteredYear, setEnteredYear] = useState("2022");
-    const [enteredHours, setEnteredHours] = useState("0");
-    const [enteredPublications, setEnteredPublications] = useState("0");
-    const [enteredVideos, setEnteredVideos] = useState("0");
-    const [enteredRevisits, setEnteredRevisits] = useState("0");
-    const [enteredStudies, setEnteredStudies] = useState("0");
+    const [enteredMonth, setEnteredMonth] = useState(
+        props.reportData ? props.reportData.month : "Janeiro"
+    );
+    const [enteredYear, setEnteredYear] = useState(
+        props.reportData ? props.reportData.year : new Date().getFullYear()
+    );
+    const [enteredHours, setEnteredHours] = useState(
+        props.reportData ? props.reportData.hours : "0"
+    );
+    const [enteredPublications, setEnteredPublications] = useState(
+        props.reportData ? props.reportData.publications : "0"
+    );
+    const [enteredVideos, setEnteredVideos] = useState(
+        props.reportData ? props.reportData.videos : "0"
+    );
+    const [enteredRevisits, setEnteredRevisits] = useState(
+        props.reportData ? props.reportData.revisits : "0"
+    );
+    const [enteredStudies, setEnteredStudies] = useState(
+        props.reportData ? props.reportData.studies : "0"
+    );
 
-    const [,setNewReportAction] = useContext(Context);
- 
+    const { setNewReportAction, setEditReportAction } = useContext(Context);
+
     const onAddReport = (event) => {
         event.preventDefault();
 
@@ -26,8 +40,9 @@ function AddReportForm(props) {
             videos: enteredVideos,
             revisits: enteredRevisits,
             studies: enteredStudies,
-        }
-        props.addReport(report);
+            id: enteredMonth + enteredYear,
+        };
+        props.onGetReport(report);
         setEnteredMonth("Janeiro");
         setEnteredYear("2022");
         setEnteredHours("");
@@ -36,37 +51,53 @@ function AddReportForm(props) {
         setEnteredRevisits("");
         setEnteredStudies("");
         onCancel();
-    } 
+    };
+
+    function validateNumber(value) {
+        const numberRegex = new RegExp(/^(0|[1-9]\d*)$/);
+        return numberRegex.test(value);
+    }
 
     const onMonth = (event) => {
-        setEnteredMonth(event.target.value);
+        if (validateNumber(event.target.value) || event.target.value === "")
+            setEnteredMonth(event.target.value);
     };
     const onHours = (event) => {
-        setEnteredHours(event.target.value);
+        if (validateNumber(event.target.value) || event.target.value === "")
+            setEnteredHours(event.target.value);
     };
     const onYear = (event) => {
-        setEnteredYear(event.target.value);
+        if (validateNumber(event.target.value) || event.target.value === "")
+            setEnteredYear(event.target.value);
     };
     const onPublications = (event) => {
-        setEnteredPublications(event.target.value);
+        if (validateNumber(event.target.value) || event.target.value === "")
+            setEnteredPublications(event.target.value);
     };
     const onVideos = (event) => {
-        setEnteredVideos(event.target.value);
+        if (validateNumber(event.target.value))
+            setEnteredVideos(event.target.value);
     };
     const onRevisits = (event) => {
-        setEnteredRevisits(event.target.value);
+        if (validateNumber(event.target.value) || event.target.value === "")
+            setEnteredRevisits(event.target.value);
     };
     const onStudies = (event) => {
-        setEnteredStudies(event.target.value);
+        if (validateNumber(event.target.value) || event.target.value === "")
+            setEnteredStudies(event.target.value);
     };
 
     const onCancel = () => {
         setNewReportAction(false);
+        setEditReportAction(false);
     };
 
     return (
-        <form onSubmit={onAddReport} className={classes["add-report-form-controls"]}>
-             <div className={classes["add-report-form-control"]} id="report">
+        <form
+            onSubmit={onAddReport}
+            className={classes["add-report-form-controls"]}
+        >
+            <div className={classes["add-report-form-control"]} id="report">
                 <div>
                     <label>Mês</label>
                     {/* <input value={enteredMonth} onChange={onMonth} type="text" required/> */}
@@ -85,36 +116,81 @@ function AddReportForm(props) {
                         <option value="Dezembro">Dezembro</option>
                     </select>
                 </div>
-                <div >
+                <div>
                     <label>Ano</label>
-                    <input value={enteredYear} onChange={onYear} type="number" min="2022" step="1" required/>
+                    <input
+                        value={enteredYear}
+                        onChange={onYear}
+                        type="number"
+                        min="2022"
+                        max="2042"
+                        step="1"
+                        required
+                    />
                 </div>
 
-                <div >
+                <div>
                     <label>Horas</label>
-                    <input value={enteredHours} onChange={onHours} type="number" min="0" step="1" />
+                    <input
+                        value={enteredHours}
+                        onChange={onHours}
+                        type="number"
+                        min="0"
+                        step="1"
+                        required
+                    />
                 </div>
-                <div >
+                <div>
                     <label>Publicações</label>
-                    <input value={enteredPublications} onChange={onPublications} type="number" min="0" step="1" />
+                    <input
+                        value={enteredPublications}
+                        onChange={onPublications}
+                        type="number"
+                        min="0"
+                        step="1"
+                        required
+                    />
                 </div>
-                <div >
+                <div>
                     <label>Videos</label>
-                    <input value={enteredVideos} onChange={onVideos} type="number" min="0" step="1"/>
+                    <input
+                        value={enteredVideos}
+                        onChange={onVideos}
+                        type="number"
+                        min="0"
+                        step="1"
+                        required
+                    />
                 </div>
-                <div >
+                <div>
                     <label>Revisitas</label>
-                    <input value={enteredRevisits} onChange={onRevisits} type="number" min="0" step="1"/>
+                    <input
+                        value={enteredRevisits}
+                        onChange={onRevisits}
+                        type="number"
+                        min="0"
+                        step="1"
+                        required
+                    />
                 </div>
-                <div >
+                <div>
                     <label>Estudos</label>
-                    <input value={enteredStudies} onChange={onStudies} type="number" min="0" step="1"/>
-                </div>             
-            </div>  
+                    <input
+                        value={enteredStudies}
+                        onChange={onStudies}
+                        type="number"
+                        min="0"
+                        step="1"
+                        required
+                    />
+                </div>
+            </div>
             <div className={classes["add-report-form-actions"]}>
                 <ButtonStandard onClick={onCancel}>Cancelar</ButtonStandard>
-                <ButtonStandard type="submit">Adicionar</ButtonStandard>
-            </div>        
+                <ButtonStandard type="submit">
+                    {props.buttonText}
+                </ButtonStandard>
+            </div>
         </form>
     );
 }

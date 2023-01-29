@@ -6,14 +6,25 @@ import AppRoutes from "./routes/AppRoutes";
 
 function App() {
     const [newReportAction, setNewReportAction] = useState(false);
-    const {myUser} = useContext(UserContext);
+    const [editReportAction, setEditReportAction] = useState(false);
+    const [reportToEdit, setReportToEdit] = useState(null);
+    const { myUser } = useContext(UserContext);
 
     useEffect(() => {
         console.log(myUser);
     }, [myUser]);
 
     return (
-        <Context.Provider value={[newReportAction, setNewReportAction]}>
+        <Context.Provider
+            value={{
+                newReportAction,
+                setNewReportAction,
+                editReportAction,
+                setEditReportAction,
+                reportToEdit,
+                setReportToEdit,
+            }}
+        >
             <AppRoutes />
         </Context.Provider>
     );

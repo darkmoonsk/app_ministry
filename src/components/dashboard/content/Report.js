@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import deleteImg from "../../../assets/delete.png";
+import editImg from "../../../assets/edit.png";
+import Context from "../../../contexts/Dashboard/Context";
 
 function Report(props) {
+    const { setEditReportAction, setReportToEdit } = useContext(Context);
+
     return (
         <div>
             <section>
+                <button
+                    onClick={() => {
+                        setReportToEdit(props.reportData);
+                        setEditReportAction(true);
+                    }}
+                >
+                    <img alt="Botão para editar o relatório" src={editImg} />
+                </button>
                 <button onClick={() => props.onRemoveReportContent(props.id)}>
                     <img alt="Botão para apagar o relatório" src={deleteImg} />
                 </button>

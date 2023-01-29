@@ -17,6 +17,7 @@
 }
 
 .report-content section button {
+    margin-left: 10px;
     background-color: transparent;
     border: none;
     width: 35px;

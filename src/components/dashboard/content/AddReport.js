@@ -5,7 +5,6 @@ import AddReportForm from './AddReportForm';
 function AddReport(props) {
     const getReport = (enteredValues) => {
         const newReport = {
-            id: Math.random().toString,
             ...enteredValues,  
         };
         props.onAddReportContent(newReport);
@@ -15,7 +14,7 @@ function AddReport(props) {
     <Fragment>
        <div className={classes["modal-background"]}></div>
        <div className={classes["add-report"]}>
-            <AddReportForm addReport={getReport}></AddReportForm>           
+            <AddReportForm onGetReport={getReport} buttonText="Adicionar"></AddReportForm>           
        </div>
     </Fragment>   
     );

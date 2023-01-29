@@ -7,7 +7,7 @@ import classes from "./Menu.module.css";
 
 
 function Menu(props) {
-    const [, setNewReportAction] = useContext(Context);
+    const {setNewReportAction} = useContext(Context);
 
     const onSignOutHandler = async () => {
        signOut(auth).then(() => {

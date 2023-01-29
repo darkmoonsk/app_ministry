@@ -15,6 +15,7 @@ import { auth } from "../../../services/firebaseConfig";
 import classes from "./ReportContent.module.css";
 import Report from "./Report";
 import AddReport from "./AddReport";
+import EditReport from "./EditReport";
 import Context from "../../../contexts/Dashboard/Context";
 
 // const DUMMY_REPORTS = [
@@ -31,7 +32,7 @@ import Context from "../../../contexts/Dashboard/Context";
 // ];
 
 function ReportContent(props) {
-    const [newReportAction] = useContext(Context);
+    const {newReportAction, editReportAction} = useContext(Context);
     const [userData, setUserData] = useState({});
     const [user] = useAuthState(auth);
 
@@ -72,10 +73,36 @@ function ReportContent(props) {
                     videos: report.videos,
                     revisits: report.revisits,
                     studies: report.studies,
-                    id: report.month + report.year,
+                    id: report.id
                 }),
             });
         }
+    };
+
+    const updateReportContentHandler = async (report, reportToEdit) => {
+        console.log("Usuario existe: ", userData);
+        const reportAlreadyExist = userData[0].reports.filter(
+            (data) => data.id === reportToEdit.id
+        );
+        if (reportAlreadyExist) {
+            console.log("O relatorio já existe");
+            const userRef = doc(db, "users", userData[0].userId);
+            await updateDoc(userRef, {
+                reports: arrayRemove(reportAlreadyExist[0]),
+            });
+            await updateDoc(userRef, {
+                reports: arrayUnion({
+                    year: report.year,
+                    month: report.month,
+                    hours: report.hours,
+                    publications: report.publications,
+                    videos: report.videos,
+                    revisits: report.revisits,
+                    studies: report.studies,
+                    id: report.id
+                }),
+            });
+        } 
     };
 
     const removeReportContentHandler = async (reportId) => {
@@ -93,6 +120,11 @@ function ReportContent(props) {
             ) : (
                 <></>
             )}
+            {editReportAction ? (
+                <EditReport onUpdatedReportContent={updateReportContentHandler} />
+            ) : (
+                <></>
+            )}
 
             {userData[0]?.reports?.map((report, index) => (
                 <Report
@@ -106,6 +138,7 @@ function ReportContent(props) {
                     revisits={report.revisits}
                     studies={report.studies}
                     onRemoveReportContent={removeReportContentHandler}
+                    reportData={report}
                 />
             ))}
             <div className={classes["report-content-footer"]}></div>

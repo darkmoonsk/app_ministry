@@ -4,10 +4,12 @@ import { auth } from "../../../services/firebaseConfig";
 import Button from "../../UI/Button";
 import Context from "../../../contexts/Dashboard/Context";
 import classes from "./Menu.module.css";
+import UserContext from "../../../contexts/Login/UserContext";
 
 
 function Menu(props) {
     const {setNewReportAction} = useContext(Context);
+    const {userData} = useContext(UserContext);
 
     const onSignOutHandler = async () => {
        signOut(auth).then(() => {
@@ -24,6 +26,7 @@ function Menu(props) {
 
     return (
         <div className={classes.menu}>
+            <h1>Olá {userData[0]?.name}</h1>
             <nav>
                 <ul>
                     <li>

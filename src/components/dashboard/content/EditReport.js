@@ -13,11 +13,13 @@ function EditReport(props) {
         props.onUpdatedReportContent(updatedReport, reportToEdit);
     }
 
+    console.log(reportToEdit);
+
     return (
     <Fragment>
        <div className={classes["modal-background"]}></div>
        <div className={classes["edit-report"]}>
-            <AddReportForm onGetReport={getReport} reportData={reportToEdit} buttonText="Salvar" ></AddReportForm>           
+            <AddReportForm isReadyOnly={true} onGetReport={getReport} reportData={reportToEdit} buttonText="Salvar" ></AddReportForm>           
        </div>
     </Fragment>   
     );

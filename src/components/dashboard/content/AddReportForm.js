@@ -9,7 +9,7 @@ function AddReportForm(props) {
         props.reportData ? props.reportData.month : "Janeiro"
     );
     const [enteredYear, setEnteredYear] = useState(
-        props.reportData ? props.reportData.year : new Date().getFullYear()
+        props.reportData ? props.reportData.year : `${new Date().getFullYear()}`
     );
     const [enteredHours, setEnteredHours] = useState(
         props.reportData ? props.reportData.hours : "0"
@@ -59,7 +59,6 @@ function AddReportForm(props) {
     }
 
     const onMonth = (event) => {
-        if (validateNumber(event.target.value) || event.target.value === "")
             setEnteredMonth(event.target.value);
     };
     const onHours = (event) => {
@@ -101,7 +100,7 @@ function AddReportForm(props) {
                 <div>
                     <label>Mês</label>
                     {/* <input value={enteredMonth} onChange={onMonth} type="text" required/> */}
-                    <select onChange={onMonth} required>
+                    <select disabled={props.isReadyOnly} value={enteredMonth}  onChange={onMonth}>
                         <option value="Janeiro">Janeiro</option>
                         <option value="Fevereiro">Fevereiro</option>
                         <option value="Março">Março</option>
@@ -121,6 +120,7 @@ function AddReportForm(props) {
                     <input
                         value={enteredYear}
                         onChange={onYear}
+                        readOnly={props.isReadyOnly}
                         type="number"
                         min="2022"
                         max="2042"
@@ -186,6 +186,11 @@ function AddReportForm(props) {
                 </div>
             </div>
             <div className={classes["add-report-form-actions"]}>
+                {
+                props.isReadyOnly?
+                    <p>Nota: o ano e o mês não podem ser editados, para isso apague este relatorio e crie um novo</p>
+                : <></>
+                }
                 <ButtonStandard onClick={onCancel}>Cancelar</ButtonStandard>
                 <ButtonStandard type="submit">
                     {props.buttonText}

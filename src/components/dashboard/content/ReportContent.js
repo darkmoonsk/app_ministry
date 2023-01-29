@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { db } from "../../../services/firebaseConfig";
 import {
     collection,
@@ -17,23 +17,11 @@ import Report from "./Report";
 import AddReport from "./AddReport";
 import EditReport from "./EditReport";
 import Context from "../../../contexts/Dashboard/Context";
-
-// const DUMMY_REPORTS = [
-//     {
-//         id: "r1",
-//         year: "2022",
-//         month: "Fevereiro",
-//         hours: 12,
-//         publications: 15,
-//         videos: 5,
-//         revisits: 3,
-//         studies: 2,
-//     },
-// ];
+import UserContext from "../../../contexts/Login/UserContext";
 
 function ReportContent(props) {
-    const {newReportAction, editReportAction} = useContext(Context);
-    const [userData, setUserData] = useState({});
+    const { newReportAction, editReportAction } = useContext(Context);
+    const {userData, setUserData} = useContext(UserContext);
     const [user] = useAuthState(auth);
 
     useEffect(() => {
@@ -48,7 +36,7 @@ function ReportContent(props) {
                 })
             );
         });
-    }, [user.uid]);
+    }, [user.uid, setUserData]);
 
     useEffect(() => {
         console.log(userData);
@@ -73,7 +61,7 @@ function ReportContent(props) {
                     videos: report.videos,
                     revisits: report.revisits,
                     studies: report.studies,
-                    id: report.id
+                    id: report.id,
                 }),
             });
         }
@@ -84,6 +72,10 @@ function ReportContent(props) {
         const reportAlreadyExist = userData[0].reports.filter(
             (data) => data.id === reportToEdit.id
         );
+        const reportIdExist = userData[0].reports.filter(
+            (data) => data.id === report.id
+        );
+        console.log(reportIdExist)
         if (reportAlreadyExist) {
             console.log("O relatorio já existe");
             const userRef = doc(db, "users", userData[0].userId);
@@ -99,10 +91,10 @@ function ReportContent(props) {
                     videos: report.videos,
                     revisits: report.revisits,
                     studies: report.studies,
-                    id: report.id
+                    id: report.id,
                 }),
             });
-        } 
+        }
     };
 
     const removeReportContentHandler = async (reportId) => {
@@ -121,7 +113,9 @@ function ReportContent(props) {
                 <></>
             )}
             {editReportAction ? (
-                <EditReport onUpdatedReportContent={updateReportContentHandler} />
+                <EditReport
+                    onUpdatedReportContent={updateReportContentHandler}
+                />
             ) : (
                 <></>
             )}

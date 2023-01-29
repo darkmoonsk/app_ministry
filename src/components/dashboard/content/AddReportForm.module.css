@@ -57,3 +57,9 @@
   width: 100%;
   text-align: right;
 }
+
+.add-report-form-actions p {
+  font-size: calc(0.9rem + 0.5vh);
+  font-weight: bold;
+  color: #ff0000;
+}

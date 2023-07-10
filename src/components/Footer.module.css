@@ -4,4 +4,12 @@
 	padding: 30px;
 	color: #fff;
 	background: #10293f;
+	font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+	.container {
+		text-align: center;
+		font-size: 0.5rem;
+	}
 }

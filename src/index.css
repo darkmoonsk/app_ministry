@@ -11,6 +11,28 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* Isto irá aplicar-se a toda a página, mas você pode substituir body por um seletor específico se preferir */
+body::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Handle (manipulador da barra) */
+  body::-webkit-scrollbar-thumb {
+    background: #888; /* Cor do manipulador da barra */
+    border-radius: 5px; /* Bordas arredondadas para o manipulador da barra */
+  }
+  
+  /* Handle (manipulador da barra) ao passar o mouse */
+  body::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Cor do manipulador da barra ao passar o mouse */
+  }
+  
+  /* Track (trilha da barra) */
+  body::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Cor da trilha da barra */
+  }
+  
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;

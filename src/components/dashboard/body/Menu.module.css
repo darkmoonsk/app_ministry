@@ -1,8 +1,15 @@
 .menu{
-    width: 30%;
-    background: #007a9d;
+    width: 600px;
+    height: 100vh;
+    left: -100%;
+    background: linear-gradient(to right top, #007a9d, #016b88, #025c75, #044d61, #053f4f);
     padding: 50px;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    transition: left 250ms ease-out;
+}
+
+.show-menu {
+    left: 0;
 }
 
 .menu h1 {
@@ -35,6 +42,40 @@
     list-style: none;
 }
 
+.menu .close {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    background: none;
+    border: none;
+}
+
+.open-menu {
+    background: #007a9d;
+    min-width: 50px;
+    border-radius: 5px;
+    padding: 10px;
+    position: fixed;
+    top: 15px;
+    left: 10px;
+    width: 2rem;
+}
+
+.open-menu button {
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.open-menu img {
+    width:32px;
+}
+
+.hidden {
+    display: none;
+}
+
 @media (max-width: 1024px) {
     .menu button {
         font-size: 15px;
@@ -45,14 +86,14 @@
 
 @media (max-width: 768px) {
     .menu {
-        width: 100%;
+        position: fixed;
+        width: 300px;
     }
 
     .menu button {
         font-size: 15px;
-        padding: 5px;
+        padding: 10px;
     }
 }
-         
 
  

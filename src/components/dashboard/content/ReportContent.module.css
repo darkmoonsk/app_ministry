@@ -1,32 +1,52 @@
 .report-content {
-    width: 70%;
-    height: auto;
+    width:100%;
+    height: 100vh;
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
+
+.report-content::-webkit-scrollbar {
+    display: none;
+}
+
+.table-wrapper {
+    width: 100%;
+    padding: 0 20px;
+    max-width: 1200px;
+    display: column;
+}
+
+.card {
+    display: inline-block;
+    flex-wrap: wrap;
+    box-shadow: 0px 0px 5px 2px rgba(33, 33, 33, 0.2);
+}
+
 
 .report-content-footer {
     margin-top: 20px;
 }
 
-.report-content section {
-    margin-top: 30px;
+.report-content .controls {
+    margin: 30px 25px;
     display: flex;
-    padding: 0 100px;
+    /* padding: 0 100px; */
     justify-content: flex-end;
 }
 
-.report-content section button {
+.report-content .controls button {
     margin-left: 10px;
     background-color: transparent;
     border: none;
     width: 35px;
-    transition: all 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
 }
 
 .report-content section button:hover {
     cursor: pointer;
-    width: 45px;
+    transform: scale(1.2);
 }
 
 .report-content button img {
@@ -35,12 +55,9 @@
 
 .report-content table {
     border-collapse: collapse;   
-    width: 90%;
+    width: 100%;
     table-layout: fixed;
-    margin-left: 5%;
-    margin-top: 15px;
-    font-size: calc(0.4em + 0.5vw);
-    box-shadow: 0px 0px 5px 2px rgba(33, 33, 33, 0.2);
+    font-size: calc(0.4em + 1vw);
 }
 
 .report-content thead{
@@ -65,15 +82,9 @@
 
 
 @media  (max-width: 768px) {
-    .report-content {
-        width: 100%;
+    .controls {
+        padding: 0;
     }
-
-    .report-content table {
-        width: 96%;
-        margin-left: 2%;
-    }
-
     .report-content table, th, td {
         padding: 10px 10px 10px 3px;
     }

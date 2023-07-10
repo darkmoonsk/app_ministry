@@ -26,11 +26,19 @@ function AddReportForm(props) {
     const [enteredStudies, setEnteredStudies] = useState(
         props.reportData ? props.reportData.studies : "0"
     );
+    const [alertText, setAlertText] = useState(
+        "Nota: o ano e o mês não podem ser editados, para isso apague este relatorio e crie um novo"
+    );
 
     const { setNewReportAction, setEditReportAction } = useContext(Context);
 
     const onAddReport = (event) => {
         event.preventDefault();
+
+        if (!validateHours(enteredHours)) {
+            setAlertText("Formato de horas inválido");
+            return;
+        }
 
         const report = {
             month: enteredMonth,
@@ -58,12 +66,17 @@ function AddReportForm(props) {
         return numberRegex.test(value);
     }
 
+    // A function validate if the format is hour format
+    function validateHours(value) {
+        const hoursRegex = new RegExp(/^\d+:[0-5]\d$/);
+        return hoursRegex.test(value);
+    }
+
     const onMonth = (event) => {
-            setEnteredMonth(event.target.value);
+        setEnteredMonth(event.target.value);
     };
     const onHours = (event) => {
-        if (validateNumber(event.target.value) || event.target.value === "")
-            setEnteredHours(event.target.value);
+        setEnteredHours(event.target.value);
     };
     const onYear = (event) => {
         if (validateNumber(event.target.value) || event.target.value === "")
@@ -100,7 +113,11 @@ function AddReportForm(props) {
                 <div>
                     <label>Mês</label>
                     {/* <input value={enteredMonth} onChange={onMonth} type="text" required/> */}
-                    <select disabled={props.isReadyOnly} value={enteredMonth}  onChange={onMonth}>
+                    <select
+                        disabled={props.isReadyOnly}
+                        value={enteredMonth}
+                        onChange={onMonth}
+                    >
                         <option value="Janeiro">Janeiro</option>
                         <option value="Fevereiro">Fevereiro</option>
                         <option value="Março">Março</option>
@@ -134,9 +151,7 @@ function AddReportForm(props) {
                     <input
                         value={enteredHours}
                         onChange={onHours}
-                        type="number"
-                        min="0"
-                        step="1"
+                        type="text"
                         required
                     />
                 </div>
@@ -186,11 +201,7 @@ function AddReportForm(props) {
                 </div>
             </div>
             <div className={classes["add-report-form-actions"]}>
-                {
-                props.isReadyOnly?
-                    <p>Nota: o ano e o mês não podem ser editados, para isso apague este relatorio e crie um novo</p>
-                : <></>
-                }
+                {props.isReadyOnly ? <p>{alertText}</p> : <></>}
                 <ButtonStandard onClick={onCancel}>Cancelar</ButtonStandard>
                 <ButtonStandard type="submit">
                     {props.buttonText}

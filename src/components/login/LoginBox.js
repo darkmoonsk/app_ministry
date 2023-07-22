@@ -1,25 +1,36 @@
-import { useState, useContext,useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import classes from "./LoginBox.module.css";
 import logo from "../../assets/ministry-logo.png";
 import UserContext from "../../contexts/Login/UserContext";
-import { signInWithEmailAndPassword, auth } from "../../services/firebaseConfig";
+import {
+    signInWithEmailAndPassword,
+    auth,
+} from "../../services/firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import account from "../../services/account";
 
 function LoginBox() {
     const [email, setEmail] = useState("");
-    const [showIncorretEmailOrPassword, setShowIncorretEmailOrPassword] = useState(false);
+    const [showIncorretEmailOrPassword, setShowIncorretEmailOrPassword] =
+        useState(false);
     const [password, setPassword] = useState("");
     const [user] = useAuthState(auth);
-    const {setMyUser} = useContext(UserContext);
-    
+    const { setMyUser } = useContext(UserContext);
+
     useEffect(() => {
-        if(user) {
+        if (user) {
             setMyUser(user);
-            
         }
     }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
-    
+
+    useEffect(() => {
+        window.addEventListener("keypress", handleKeyPress);
+
+        return () => {
+            window.removeEventListener("keypress", handleKeyPress);
+        };
+    }, []);
+
     const updateEmail = (event) => {
         setShowIncorretEmailOrPassword(false);
         setEmail(event.target.value);
@@ -30,23 +41,32 @@ function LoginBox() {
         setPassword(event.target.value);
     };
 
-    const signIn = (email, password) => {       
+    const signIn = (email, password) => {
         if (account.validateEmailAndPassword(email, password)) {
             setShowIncorretEmailOrPassword(false);
 
-            signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-                // Signed in
-                const user = userCredential.user;
-                setMyUser(user);
-                // ...
-            }).catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode, errorMessage);
-                setShowIncorretEmailOrPassword(true);
-            });
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                    setMyUser(user);
+                    // ...
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(errorCode, errorMessage);
+                    setShowIncorretEmailOrPassword(true);
+                });
         } else {
             setShowIncorretEmailOrPassword(true);
+        }
+    };
+
+    const handleKeyPress = (event) => {
+        if (event.key === "Enter") {
+            signIn(email, password);
+            console.log(email, password);
         }
     };
 
@@ -67,8 +87,16 @@ function LoginBox() {
                     placeholder="Senha"
                 />
                 <div className={classes.footer}>
-                    {showIncorretEmailOrPassword && <p>Email ou senha incorretos</p>}
-                    <button onClick={() => signIn(email, password)}>Entrar</button>
+                    {showIncorretEmailOrPassword && (
+                        <p>Email ou senha incorretos</p>
+                    )}
+                    <button
+                        tabIndex="0"
+                        onKeyPress={handleKeyPress}
+                        onClick={() => signIn(email, password)}
+                    >
+                        Entrar
+                    </button>
                 </div>
             </div>
         </section>

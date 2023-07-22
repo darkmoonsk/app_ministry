@@ -19,6 +19,11 @@ function Login() {
                 </LoginContainer>
             );
         }
+    } else {
+        return (
+            <LoginContainer>
+            </LoginContainer>
+        )
     }
 }
 

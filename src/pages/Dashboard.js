@@ -1,7 +1,7 @@
 import { auth } from "../services/firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Navigate } from "react-router-dom";
-import Menu from "../components/dashboard/body/Menu";
+import Menu from "../components/header/Menu";
 import ReportContent from "../components/dashboard/content/ReportContent";
 import DashboardContainer from "../components/dashboard/DashboardContainer";
 
@@ -21,6 +21,12 @@ function Dashboard() {
                 </DashboardContainer>
             );
         }
+    } else {
+        return (
+            <DashboardContainer>
+                
+            </DashboardContainer>
+        )
     }
 }
 

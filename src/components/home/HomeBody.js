@@ -7,7 +7,7 @@ function HomeBody() {
                 <h1>Relatórios Teocraticos</h1>
                 <p>
                     Gerencie de forma simples e prática os seus relatorios,
-                    obtenha insights do sobre a seu trabalho ao longo do ano.
+                    obtenha insights sobre a seu trabalho ao longo do ano.
                 </p>
                 <div className={classes["news-box"]}>
                     <h1>Noticias</h1>

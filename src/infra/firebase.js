@@ -1,10 +1,13 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
 import {
-    auth,
-    db,
-    signInWithEmailAndPassword,
-} from "./firebaseConfig";
+    doc,
+    setDoc,
+    collection,
+    query,
+    where,
+    onSnapshot,
+} from "firebase/firestore";
+import { auth, db, signInWithEmailAndPassword } from "./firebaseConfig";
 
 export default class Firebase {
     persistUser(user) {
@@ -24,6 +27,21 @@ export default class Firebase {
                 });
         });
     }
+
+    getUserData(user, userDataState) {
+        const q = query(
+            collection(db, "users"),
+            where("userId", "==", user.uid)
+        );
+        onSnapshot(q, (querySnapshot) => {
+            userDataState(
+                querySnapshot.docs.map((doc) => {
+                    return doc.data();
+                })
+            );
+        });
+    }
+
     async createUserInDatabase(name, user) {
         const userRef = await doc(db, "users/" + user.uid);
         await setDoc(userRef, {

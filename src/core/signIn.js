@@ -4,7 +4,7 @@ import Firebase from "../infra/firebase";
 
 export default async function signIn(email, password, setUser, errorState) {
     const validateUser = new ValidateUser("", email, password);
-    if (!validateUser.isValidName || !validateUser.isValidPassword) {
+    if (!validateUser.isValidEmail || !validateUser.isValidPassword) {
         errorState(true);
         return;
     }

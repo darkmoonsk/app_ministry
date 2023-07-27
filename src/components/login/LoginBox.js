@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import classes from "./LoginBox.module.css";
 import logo from "../../assets/ministry-logo.png";
 import UserContext from "../../contexts/Login/UserContext";
-import { auth } from "../../services/firebaseConfig";
+import { auth } from "../../infra/firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import signIn from "../../core/signIn";
 

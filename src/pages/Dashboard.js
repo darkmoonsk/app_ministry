@@ -1,4 +1,4 @@
-import { auth } from "../services/firebaseConfig";
+import { auth } from "../infra/firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Navigate } from "react-router-dom";
 import Menu from "../components/header/Menu";

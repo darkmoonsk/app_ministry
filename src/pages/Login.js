@@ -1,5 +1,5 @@
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../services/firebaseConfig";
+import { auth } from "../infra/firebaseConfig";
 import { Navigate } from "react-router-dom";
 import LoginContainer from "../components/login/LoginContainer";
 import LoginBox from "../components/login/LoginBox";

@@ -1,4 +1,4 @@
-import { auth } from "../services/firebaseConfig"
+import { auth } from "../infra/firebaseConfig"
 import { useAuthState } from "react-firebase-hooks/auth"
 import SignUpBox from "../components/signUp/SignUpBox"
 import SignUpContainer from "../components/signUp/SignUpContainer"

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import classes from "./SignUpBox.module.css";
 import UserContext from "../../contexts/Login/UserContext";
-import account from "../../services/account";
+import RegisterUser from "../../core/registerUser";
 
 function SignUpBox() {
     const { setMyUser } = useContext(UserContext);
@@ -34,29 +34,14 @@ function SignUpBox() {
         password,
         passwordConfirmation
     ) => {
-        password = password.trim();
-        passwordConfirmation = passwordConfirmation.trim();
-        email = email.trim();
-        name = name.trim();
-
-        console.log(account.validatePassword(password, passwordConfirmation));
-        if (!account.validatePassword(password, passwordConfirmation)) {
-            setShowError("As senhas não conferem");
-            return;
-        }else if (!account.validateEmailAndPassword(email, password)) {
-            setShowError("Email ou senha inválidos");
-            return;
-        }else if (!account.validateName(name)) {
-            setShowError("Nome inválido");
-            return;
-        }
-
-        const user = await account.createUser(name, email, password).then((user) => {
-            return user;
-        }).catch((error) => {
-            setShowError("Email já cadastrado");
-            return;
-        });
+        const registerUser = new RegisterUser();
+        const user = await registerUser.execute(
+            name.trim(),
+            email.trim(),
+            password.trim(),
+            passwordConfirmation.trim(),
+            setShowError
+        );
         setMyUser(user);
     };
 

@@ -1,23 +1,20 @@
 import { useContext, useEffect } from "react";
-import { db } from "../../../services/firebaseConfig";
+import { db } from "../../../infra/firebaseConfig";
 import {
-    collection,
-    query,
-    where,
-    onSnapshot,
     doc,
     updateDoc,
     arrayUnion,
     arrayRemove,
 } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../../services/firebaseConfig";
+import { auth } from "../../../infra/firebaseConfig";
 import classes from "./ReportContent.module.css";
 import Report from "./Report";
 import AddReport from "./AddReport";
 import EditReport from "./EditReport";
 import Context from "../../../contexts/Dashboard/Context";
 import UserContext from "../../../contexts/Login/UserContext";
+import Firebase from "../../../infra/firebase";
 
 function ReportContent(props) {
     const { newReportAction, editReportAction } = useContext(Context);
@@ -26,17 +23,8 @@ function ReportContent(props) {
 
     useEffect(() => {
         if(user) {
-            const q = query(
-                collection(db, "users"),
-                where("userId", "==", user.uid)
-            );
-            onSnapshot(q, (querySnapshot) => {
-                setUserData(
-                    querySnapshot.docs.map((doc) => {
-                        return doc.data();
-                    })
-                );
-            });
+            const firebase = new Firebase();
+            firebase.getUserData(user, setUserData);
         }
     }, [user, setUserData]);
 

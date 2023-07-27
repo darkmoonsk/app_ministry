@@ -25,18 +25,20 @@ function ReportContent(props) {
     const [user] = useAuthState(auth);
 
     useEffect(() => {
-        const q = query(
-            collection(db, "users"),
-            where("userId", "==", user.uid)
-        );
-        onSnapshot(q, (querySnapshot) => {
-            setUserData(
-                querySnapshot.docs.map((doc) => {
-                    return doc.data();
-                })
+        if(user) {
+            const q = query(
+                collection(db, "users"),
+                where("userId", "==", user.uid)
             );
-        });
-    }, [user.uid, setUserData]);
+            onSnapshot(q, (querySnapshot) => {
+                setUserData(
+                    querySnapshot.docs.map((doc) => {
+                        return doc.data();
+                    })
+                );
+            });
+        }
+    }, [user, setUserData]);
 
     useEffect(() => {
         console.log(userData);

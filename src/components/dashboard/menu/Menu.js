@@ -1,10 +1,10 @@
 import { useContext, useState, useEffect } from "react";
 import { signOut } from "firebase/auth";
-import { auth } from "../../infra/firebaseConfig";
-import Button from "../UI/Button";
-import Context from "../../contexts/Dashboard/Context";
+import { auth } from "../../../infra/firebaseConfig";
+import Button from "../../UI/Button";
+import Context from "../../../contexts/Dashboard/Context";
 import classes from "./Menu.module.css";
-import UserContext from "../../contexts/Login/UserContext";
+import UserContext from "../../../contexts/Login/UserContext";
 
 
 function Menu(props) {

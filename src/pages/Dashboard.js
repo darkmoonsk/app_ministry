@@ -1,9 +1,11 @@
 import { auth } from "../infra/firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Navigate } from "react-router-dom";
-import Menu from "../components/header/Menu";
+import Menu from "../components/dashboard/menu/Menu";
 import ReportContent from "../components/dashboard/content/ReportContent";
 import DashboardContainer from "../components/dashboard/DashboardContainer";
+import DashboardFilters from "../components/dashboard/DashboardFilters";
+import ContentContainer from "../components/dashboard/ContentContainer";
 
 function Dashboard() {
     const [user, loading] = useAuthState(auth);
@@ -17,7 +19,10 @@ function Dashboard() {
             return (
                 <DashboardContainer>
                     <Menu />
-                    <ReportContent />
+                    <ContentContainer>
+                        <DashboardFilters />
+                        <ReportContent />
+                    </ContentContainer>
                 </DashboardContainer>
             );
         }

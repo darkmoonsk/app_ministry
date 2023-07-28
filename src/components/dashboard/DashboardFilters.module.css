@@ -1,0 +1,23 @@
+.filter-container {
+    display: flex;
+    width: 350px;
+    align-items: center;
+}
+
+.filter-container span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.filter-container select {
+    width: 200px;
+    font-size: 1.5rem;
+    outline: none;
+}
+
+@media (max-width: 480px) {
+    .filter-container {
+        flex-direction: column;
+    }
+}

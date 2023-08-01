@@ -6,6 +6,7 @@ import ReportContent from "../components/dashboard/content/ReportContent";
 import DashboardContainer from "../components/dashboard/DashboardContainer";
 import DashboardFilters from "../components/dashboard/DashboardFilters";
 import ContentContainer from "../components/dashboard/ContentContainer";
+import FilterProvider from "../contexts/Filters/FiltersContext";
 
 function Dashboard() {
     const [user, loading] = useAuthState(auth);
@@ -20,8 +21,10 @@ function Dashboard() {
                 <DashboardContainer>
                     <Menu />
                     <ContentContainer>
-                        <DashboardFilters />
-                        <ReportContent />
+                        <FilterProvider>
+                            <DashboardFilters />
+                            <ReportContent />
+                        </FilterProvider>
                     </ContentContainer>
                 </DashboardContainer>
             );

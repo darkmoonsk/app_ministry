@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { db } from "../../../infra/firebaseConfig";
 import {
     doc,
@@ -15,10 +15,14 @@ import EditReport from "./EditReport";
 import Context from "../../../contexts/Dashboard/Context";
 import UserContext from "../../../contexts/Login/UserContext";
 import Firebase from "../../../infra/firebase";
+import { filterContext } from "../../../contexts/Filters/FiltersContext";
+import filterReports from "../../../core/filterReports";
 
 function ReportContent(props) {
+    const [ filteredReports , setFilteredReports ] = useState();
     const { newReportAction, editReportAction } = useContext(Context);
-    const {userData, setUserData} = useContext(UserContext);
+    const { userData, setUserData } = useContext(UserContext);
+    const { filter} = useContext(filterContext);
     const [user] = useAuthState(auth);
 
     useEffect(() => {
@@ -29,8 +33,10 @@ function ReportContent(props) {
     }, [user, setUserData]);
 
     useEffect(() => {
-        console.log(userData);
-    }, [userData]);
+        if(userData[0]) {
+            setFilteredReports(filterReports(userData[0].reports, filter));
+        }
+    }, [userData, filter]);
 
     const addReportContentHandler = async (report) => {
         console.log("Usuario existe: ", userData);
@@ -110,7 +116,7 @@ function ReportContent(props) {
                 <></>
             )}
 
-            {userData[0]?.reports?.map((report, index) => (
+            {filteredReports?.map((report, index) => (
                 <Report
                     key={index}
                     id={report.id}

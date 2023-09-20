@@ -2,6 +2,9 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import {
     doc,
     setDoc,
+    updateDoc,
+    arrayUnion,
+    arrayRemove,
     collection,
     query,
     where,
@@ -66,5 +69,68 @@ export default class Firebase {
                 console.log(errorCode, errorMessage);
                 setShowIncorretEmailOrPassword(true);
             });
+    }
+
+    async saveReport(report, userData) {
+        console.log("Usuario existe: ", userData);
+        const reportAlreadyExist = userData[0].reports.find(
+            (data) => data.month === report.month && data.year === report.year
+        );
+        if (reportAlreadyExist) {
+            console.log("O relatorio já existe");
+        } else {
+            console.log("O relatorio não existe");
+            const userRef = doc(db, "users", userData[0].userId);
+            await updateDoc(userRef, {
+                reports: arrayUnion({
+                    year: report.year,
+                    month: report.month,
+                    hours: report.hours,
+                    publications: report.publications,
+                    videos: report.videos,
+                    revisits: report.revisits,
+                    studies: report.studies,
+                    id: report.id,
+                }),
+            });
+        }
+    }
+
+    async updateReport(report, reportToEdit, userData) {
+        console.log("Usuario existe: ", userData);
+        const reportAlreadyExist = userData[0].reports.filter(
+            (data) => data.id === reportToEdit.id
+        );
+        const reportIdExist = userData[0].reports.filter(
+            (data) => data.id === report.id
+        );
+        console.log(reportIdExist)
+        if (reportAlreadyExist) {
+            console.log("O relatorio já existe");
+            const userRef = doc(db, "users", userData[0].userId);
+            await updateDoc(userRef, {
+                reports: arrayRemove(reportAlreadyExist[0]),
+            });
+            await updateDoc(userRef, {
+                reports: arrayUnion({
+                    year: report.year,
+                    month: report.month,
+                    hours: report.hours,
+                    publications: report.publications,
+                    videos: report.videos,
+                    revisits: report.revisits,
+                    studies: report.studies,
+                    id: report.id,
+                }),
+            });
+        }
+    }
+
+    async removeReport(reportId, userData) {
+        const element = userData[0].reports.filter((r) => r.id === reportId);
+        const reportRef = await doc(db, "users/" + userData[0].userId);
+        updateDoc(reportRef, {
+            reports: arrayRemove(element[0]),
+        });
     }
 }

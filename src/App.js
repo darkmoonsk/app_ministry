@@ -1,13 +1,9 @@
-import { useState, useEffect } from "react";
-import { useContext } from "react";
+import { useEffect, useContext } from "react";
 import UserContext from "./contexts/Login/UserContext";
-import Context from "./contexts/Dashboard/Context";
 import AppRoutes from "./routes/AppRoutes";
+import DashboardProvider from "./contexts/Dashboard/DashboardContext";
 
 function App() {
-    const [newReportAction, setNewReportAction] = useState(false);
-    const [editReportAction, setEditReportAction] = useState(false);
-    const [reportToEdit, setReportToEdit] = useState(null);
     const { myUser } = useContext(UserContext);
 
     useEffect(() => {
@@ -15,18 +11,9 @@ function App() {
     }, [myUser]);
 
     return (
-        <Context.Provider
-            value={{
-                newReportAction,
-                setNewReportAction,
-                editReportAction,
-                setEditReportAction,
-                reportToEdit,
-                setReportToEdit,
-            }}
-        >
+        <DashboardProvider>
             <AppRoutes />
-        </Context.Provider>
+        </DashboardProvider>
     );
 }
 

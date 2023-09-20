@@ -1,8 +1,10 @@
 import { useContext, useState } from "react";
-import Context from "../../../contexts/Dashboard/Context";
+import { DashboardContext } from "../../../contexts/Dashboard/DashboardContext";
 import ButtonStandard from "../../UI/ButtonStandard";
 
 import classes from "./AddReportForm.module.css";
+import Firebase from "../../../infra/firebase";
+import ValidateReport from "../../../core/validateReport";
 
 function AddReportForm(props) {
     const [enteredMonth, setEnteredMonth] = useState(
@@ -30,12 +32,13 @@ function AddReportForm(props) {
         "Nota: o ano e o mês não podem ser editados, para isso apague este relatorio e crie um novo"
     );
 
-    const { setNewReportAction, setEditReportAction } = useContext(Context);
+    const { setNewReportAction, setEditReportAction } = useContext(DashboardContext);
 
-    const onAddReport = (event) => {
+    const onAddReport = async (event) => {
         event.preventDefault();
+        const firebase = new Firebase();
 
-        if (!validateHours(enteredHours)) {
+        if (!ValidateReport.validateHours(enteredHours)) {
             setAlertText("Formato de horas inválido");
             return;
         }
@@ -50,7 +53,13 @@ function AddReportForm(props) {
             studies: enteredStudies,
             id: enteredMonth + enteredYear,
         };
-        props.onGetReport(report);
+
+        if(props.editMode) {
+            await firebase.updateReport(report, props.reportData, props.userData);
+        } else {
+            await firebase.saveReport(report, props.userData);
+        }
+        
         setEnteredMonth("Janeiro");
         setEnteredYear("2022");
         setEnteredHours("");
@@ -61,16 +70,7 @@ function AddReportForm(props) {
         onCancel();
     };
 
-    function validateNumber(value) {
-        const numberRegex = new RegExp(/^(0|[1-9]\d*)$/);
-        return numberRegex.test(value);
-    }
 
-    // A function validate if the format is hour format
-    function validateHours(value) {
-        const hoursRegex = new RegExp(/^\d+:[0-5]\d$/);
-        return hoursRegex.test(value);
-    }
 
     const onMonth = (event) => {
         setEnteredMonth(event.target.value);
@@ -79,23 +79,23 @@ function AddReportForm(props) {
         setEnteredHours(event.target.value);
     };
     const onYear = (event) => {
-        if (validateNumber(event.target.value) || event.target.value === "")
+        if (ValidateReport.validateNumber(event.target.value) || event.target.value === "")
             setEnteredYear(event.target.value);
     };
     const onPublications = (event) => {
-        if (validateNumber(event.target.value) || event.target.value === "")
+        if (ValidateReport.validateNumber(event.target.value) || event.target.value === "")
             setEnteredPublications(event.target.value);
     };
     const onVideos = (event) => {
-        if (validateNumber(event.target.value))
+        if (ValidateReport.validateNumber(event.target.value))
             setEnteredVideos(event.target.value);
     };
     const onRevisits = (event) => {
-        if (validateNumber(event.target.value) || event.target.value === "")
+        if (ValidateReport.validateNumber(event.target.value) || event.target.value === "")
             setEnteredRevisits(event.target.value);
     };
     const onStudies = (event) => {
-        if (validateNumber(event.target.value) || event.target.value === "")
+        if (ValidateReport.validateNumber(event.target.value) || event.target.value === "")
             setEnteredStudies(event.target.value);
     };
 

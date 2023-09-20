@@ -1,36 +1,31 @@
 import { useContext, useEffect, useState } from "react";
-import { db } from "../../../infra/firebaseConfig";
-import {
-    doc,
-    updateDoc,
-    arrayUnion,
-    arrayRemove,
-} from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../infra/firebaseConfig";
 import classes from "./ReportContent.module.css";
 import Report from "./Report";
 import AddReport from "./AddReport";
 import EditReport from "./EditReport";
-import Context from "../../../contexts/Dashboard/Context";
+import { DashboardContext } from "../../../contexts/Dashboard/DashboardContext";
 import UserContext from "../../../contexts/Login/UserContext";
 import Firebase from "../../../infra/firebase";
 import { filterContext } from "../../../contexts/Filters/FiltersContext";
 import filterReports from "../../../core/filterReports";
+import AddHours from "../modals/AddHours";
 
 function ReportContent(props) {
     const [ filteredReports , setFilteredReports ] = useState();
-    const { newReportAction, editReportAction } = useContext(Context);
+    const { newReportAction, editReportAction, addHoursAction } = useContext(DashboardContext);
     const { userData, setUserData } = useContext(UserContext);
     const { filter} = useContext(filterContext);
     const [user] = useAuthState(auth);
+    
+    const firebase = new Firebase();
 
     useEffect(() => {
         if(user) {
-            const firebase = new Firebase();
             firebase.getUserData(user, setUserData);
-        }
-    }, [user, setUserData]);
+        }// eslint-disable-next-line
+    }, [user, setUserData]); 
 
     useEffect(() => {
         if(userData[0]) {
@@ -38,80 +33,21 @@ function ReportContent(props) {
         }
     }, [userData, filter]);
 
-    const addReportContentHandler = async (report) => {
-        console.log("Usuario existe: ", userData);
-        const reportAlreadyExist = userData[0].reports.find(
-            (data) => data.month === report.month && data.year === report.year
-        );
-        if (reportAlreadyExist) {
-            console.log("O relatorio já existe");
-        } else {
-            console.log("O relatorio não existe");
-            const userRef = doc(db, "users", userData[0].userId);
-            await updateDoc(userRef, {
-                reports: arrayUnion({
-                    year: report.year,
-                    month: report.month,
-                    hours: report.hours,
-                    publications: report.publications,
-                    videos: report.videos,
-                    revisits: report.revisits,
-                    studies: report.studies,
-                    id: report.id,
-                }),
-            });
-        }
-    };
-
-    const updateReportContentHandler = async (report, reportToEdit) => {
-        console.log("Usuario existe: ", userData);
-        const reportAlreadyExist = userData[0].reports.filter(
-            (data) => data.id === reportToEdit.id
-        );
-        const reportIdExist = userData[0].reports.filter(
-            (data) => data.id === report.id
-        );
-        console.log(reportIdExist)
-        if (reportAlreadyExist) {
-            console.log("O relatorio já existe");
-            const userRef = doc(db, "users", userData[0].userId);
-            await updateDoc(userRef, {
-                reports: arrayRemove(reportAlreadyExist[0]),
-            });
-            await updateDoc(userRef, {
-                reports: arrayUnion({
-                    year: report.year,
-                    month: report.month,
-                    hours: report.hours,
-                    publications: report.publications,
-                    videos: report.videos,
-                    revisits: report.revisits,
-                    studies: report.studies,
-                    id: report.id,
-                }),
-            });
-        }
-    };
-
-    const removeReportContentHandler = async (reportId) => {
-        const element = userData[0].reports.filter((r) => r.id === reportId);
-        const reportRef = await doc(db, "users/" + userData[0].userId);
-        updateDoc(reportRef, {
-            reports: arrayRemove(element[0]),
-        });
-    };
 
     return (
         <div className={classes["report-content"]}>
             {newReportAction ? (
-                <AddReport onAddReportContent={addReportContentHandler} />
+                <AddReport userData={userData} />
             ) : (
                 <></>
             )}
             {editReportAction ? (
-                <EditReport
-                    onUpdatedReportContent={updateReportContentHandler}
-                />
+                <EditReport userData={userData} />
+            ) : (
+                <></>
+            )}
+            {addHoursAction ? (
+                <AddHours userData={userData} />
             ) : (
                 <></>
             )}
@@ -127,7 +63,7 @@ function ReportContent(props) {
                     videos={report.videos}
                     revisits={report.revisits}
                     studies={report.studies}
-                    onRemoveReportContent={removeReportContentHandler}
+                    onRemoveReportContent={() => firebase.removeReport(report.id, userData)}
                     reportData={report}
                 />
             ))}

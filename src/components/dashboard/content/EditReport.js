@@ -1,17 +1,10 @@
 import { Fragment, useContext } from 'react';
 import classes from "./EditReport.module.css";
 import AddReportForm from './AddReportForm';
-import Context from '../../../contexts/Dashboard/Context';
+import { DashboardContext } from '../../../contexts/Dashboard/DashboardContext';
 
 function EditReport(props) {
-	const {reportToEdit} = useContext(Context);
-
-	const getReport = (report) => {
-        const updatedReport = {
-			...report,
-		};
-        props.onUpdatedReportContent(updatedReport, reportToEdit);
-    }
+	const {reportToEdit} = useContext(DashboardContext);
 
     console.log(reportToEdit);
 
@@ -19,7 +12,7 @@ function EditReport(props) {
     <Fragment>
        <div className={classes["modal-background"]}></div>
        <div className={classes["edit-report"]}>
-            <AddReportForm isReadyOnly={true} onGetReport={getReport} reportData={reportToEdit} buttonText="Salvar" ></AddReportForm>           
+            <AddReportForm isReadyOnly={true} editMode={true} reportData={reportToEdit} userData={props.userData} buttonText="Salvar" ></AddReportForm>           
        </div>
     </Fragment>   
     );

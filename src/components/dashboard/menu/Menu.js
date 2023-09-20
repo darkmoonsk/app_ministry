@@ -2,13 +2,13 @@ import { useContext, useState, useEffect } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../infra/firebaseConfig";
 import Button from "../../UI/Button";
-import Context from "../../../contexts/Dashboard/Context";
+import { DashboardContext } from "../../../contexts/Dashboard/DashboardContext";
 import classes from "./Menu.module.css";
 import UserContext from "../../../contexts/Login/UserContext";
 
 
 function Menu(props) {
-    const {setNewReportAction} = useContext(Context);
+    const {setNewReportAction} = useContext(DashboardContext);
     const {userData} = useContext(UserContext);
     const [viewWidth, setViewWidth] = useState(window.innerWidth);
     const [showMenu, setShowMenu] = useState(false);

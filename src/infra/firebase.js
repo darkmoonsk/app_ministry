@@ -97,14 +97,10 @@ export default class Firebase {
     }
 
     async updateReport(report, reportToEdit, userData) {
-        console.log("Usuario existe: ", userData);
         const reportAlreadyExist = userData[0].reports.filter(
             (data) => data.id === reportToEdit.id
         );
-        const reportIdExist = userData[0].reports.filter(
-            (data) => data.id === report.id
-        );
-        console.log(reportIdExist)
+
         if (reportAlreadyExist) {
             console.log("O relatorio já existe");
             const userRef = doc(db, "users", userData[0].userId);

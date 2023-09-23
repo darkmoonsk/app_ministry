@@ -3,7 +3,7 @@ import classes from "./ButtonStandard.module.css";
 
 function Button(props) {
     return (
-        <button className={classes["button-65"]} onClick={props.onClick}>
+        <button type={props.type} className={classes["button-65"]} onClick={props.onClick}>
             {props.children}
         </button>
     );

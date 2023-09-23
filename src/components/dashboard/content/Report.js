@@ -2,14 +2,20 @@ import classes from "./ReportContent.module.css";
 import React, { useContext } from "react";
 import deleteImg from "../../../assets/delete.png";
 import editImg from "../../../assets/edit.png";
-import Context from "../../../contexts/Dashboard/Context";
+import { DashboardContext } from "../../../contexts/Dashboard/DashboardContext";
 
 function Report(props) {
-    const { setEditReportAction, setReportToEdit } = useContext(Context);
+    const { setEditReportAction, setReportToEdit, setAddHoursAction } = useContext(DashboardContext);
 
     return (
         <section className={classes["table-wrapper"]}>
             <section className={classes.controls}>
+                <button onClick={() => {
+                    setReportToEdit(props.reportData);
+                    setAddHoursAction(true);
+                }}>
+                    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828817.png" alt="Adicionar horas" />
+                </button>
                 <button
                     onClick={() => {
                         setReportToEdit(props.reportData);

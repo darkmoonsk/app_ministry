@@ -28,9 +28,10 @@ function AddReportForm(props) {
     const [enteredStudies, setEnteredStudies] = useState(
         props.reportData ? props.reportData.studies : "0"
     );
-    const [alertText, setAlertText] = useState(
-        "Nota: o ano e o mês não podem ser editados, para isso apague este relatorio e crie um novo"
-    );
+    const alertText = "Nota: o ano e o mês não podem ser editados, para isso apague este relatorio e crie um novo"
+
+
+    const [ showError, setShowError ] = useState("");
 
     const { setNewReportAction, setEditReportAction } = useContext(DashboardContext);
 
@@ -39,7 +40,7 @@ function AddReportForm(props) {
         const firebase = new Firebase();
 
         if (!ValidateReport.validateHours(enteredHours)) {
-            setAlertText("Formato de horas inválido");
+            setShowError("Formato de horas inválido");
             return;
         }
 
@@ -201,6 +202,7 @@ function AddReportForm(props) {
                 </div>
             </div>
             <div className={classes["add-report-form-actions"]}>
+                <p>{showError}</p>
                 {props.isReadyOnly ? <p>{alertText}</p> : <></>}
                 <ButtonStandard onClick={onCancel}>Cancelar</ButtonStandard>
                 <ButtonStandard type="submit">

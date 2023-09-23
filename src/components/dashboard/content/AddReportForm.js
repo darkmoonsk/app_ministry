@@ -135,16 +135,26 @@ function AddReportForm(props) {
                 </div>
                 <div>
                     <label>Ano</label>
-                    <input
+                    <select
                         value={enteredYear}
                         onChange={onYear}
-                        readOnly={props.isReadyOnly}
+                        disabled={props.isReadyOnly}
                         type="number"
                         min="2022"
                         max="2042"
                         step="1"
                         required
-                    />
+                    >
+                        <option>2022</option>
+                        <option>2023</option>
+                        <option>2024</option>
+                        <option>2025</option>
+                        <option>2026</option>
+                        <option>2027</option>
+                        <option>2028</option>
+                        <option>2029</option>
+                        <option>2030</option>
+                    </select>
                 </div>
 
                 <div>
